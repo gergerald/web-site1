@@ -18,9 +18,9 @@ const About = () => {
       pat_no: value.patient_number,
       admtd_on: value.admitted_on,
       cond_on: value.condition,
-      adv_pymt: value.advance_payment,
+      adv_pymt: parseFloat(value.advance_payment),
       mode_pymt: value.mode_payment,
-      room_no: value.room_number,
+      room_no: parseInt(value.room_number),
       doc_no: value.doc_no,
     };
 
@@ -35,12 +35,9 @@ const About = () => {
     });
 
     console.log(newRow);
-
     const response = await fetch("http://127.0.0.1/hospital/patients/routes.php", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { 'Content-Type': 'application/json', },
         body: JSON.stringify(newRow),
     }).then(res => res).catch(err => console.error(err))
   };
@@ -87,7 +84,7 @@ const About = () => {
             <label htmlFor="advance_payment">Advance Payment</label>
             <input
               id="advance_payment"
-              type="text"
+              type="number"
               className="input"
               value={value.advance_payment}
               onChange={(e) =>
