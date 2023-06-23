@@ -12,6 +12,7 @@ import Comment from './components/pages/Comment';
 import Dashboard from './components/pages/Dashboard';
 import Product from './components/pages/Product';
 import ProductList from './components/pages/ProductList';
+import Patients from './components/pages/Patients';
 import './App.css';
 
 function App() {
@@ -19,11 +20,12 @@ function App() {
     <Router>
       <Navbar />
       <Routes>
-        <Route path="/" element={<HomePage />} />
+      <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/sidebar" element={<SidebarPage />} />
         <Route path="/about" element={<SidebarWithAbout />} />
         <Route path="/admit" element={<SidebarWithAdmit />} />
+        <Route path="/patients" element={<SidebarWithPatients />} />
         <Route path="/discharge" element={<SidebarWithDischarge />} />
         <Route path="/checkup" element={<SidebarWithCheckup />} />
         <Route path="/room-details" element={<SidebarWithProduct />} />
@@ -123,6 +125,15 @@ function SidebarWithProductList() {
       {/* Add your other components or content for the product list page */}
     </div>
   );
+}
+
+function SidebarWithPatients() {
+  return (
+    <div className="sidebar-page">
+      <Sidebar />
+      <Patients/>
+    </div>
+  )
 }
 
 export default App;
