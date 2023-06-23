@@ -11,7 +11,11 @@ function Sidebar() {
       navigate('/about');
     } else if (path === '/admit') {
       navigate('/admit');
-    } else if (path === '/discharge') {
+    } 
+    else if (path === '/patients') {
+      navigate('/patients');
+    }
+    else if (path === '/discharge') {
       navigate('/discharge');
     } else if (path === '/checkup') {
       navigate('/checkup');
@@ -43,6 +47,11 @@ function Sidebar() {
         <li>
           <button onClick={() => handleNavigation('/admit')}>
             <MdAddCircle /> Discharge
+          </button>
+        </li>
+        <li>
+          <button onClick={() => handleNavigation('/patients')}>
+            <MdAddCircle /> Patients
           </button>
         </li>
         <li>
