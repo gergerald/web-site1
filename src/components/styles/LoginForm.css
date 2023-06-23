@@ -1,0 +1,52 @@
+.login-container {
+  background-image: url('pic.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.login-form {
+  width: 300px;
+  margin: 300px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.login-form h2 {
+  text-align: center;
+}
+
+.login-form form {
+  margin-top: 20px;
+}
+
+.login-form .form-group {
+  margin-bottom: 10px;
+}
+
+.login-form label {
+  display: block;
+  font-weight: bold;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+  width: 100%;
+  padding: 5px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+}
+
+.login-form button {
+  width: 100%;
+  padding: 10px;
+  background-color: #2196f3;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.login-form button:hover {
+  background-color: #0d8bf1;
+}

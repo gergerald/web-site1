@@ -1,0 +1,55 @@
+.dscrptn {
+	padding: 5% 5%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background-color: rgb(43, 42, 41);
+  }
+  
+  .dscrptn-head {
+	color: white;
+	text-decoration: underline;
+	text-underline-offset: 1rem;
+	text-transform: uppercase;
+	text-align: center;
+	font-size: 2rem;
+	word-spacing: 4px;
+	position: relative;
+	padding-top: 2rem;
+	margin-bottom: 4rem;
+	font-family: "Patrick Hand";
+  }
+  
+  .dscrptn p {
+	color: rgb(255, 255, 255);
+	word-spacing: 4px;
+	font-size: 2rem;
+	text-align: center;
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  }
+  
+  .dscrptn-info {
+	margin-bottom: 2rem;
+  }
+  
+  .social-icons {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 2rem;
+  }
+  
+  .social-icon {
+	color: rgb(255, 255, 255);
+	margin: 0 0.5rem;
+	font-size: 1.5rem;
+  }
+  
+  .footer-copy {
+	color: rgb(255, 255, 255);
+	text-align: center;
+	font-size: 1rem;
+	font-weight: bold;
+  }
+  
