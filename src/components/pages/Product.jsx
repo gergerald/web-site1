@@ -1,15 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react"
 import { Table, TableContainer, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 
 const ProductList = () => {
-  const [roomData, setroomData] = useState([]);
+  // // Sample data for demonstration
+  // const departmentData = [
+  //   { dept_name: 'Cardiology', dept_location: 'Floor 2', facilities: 'MRI, CT Scan' },
+  //   { dept_name: 'Pediatrics', dept_location: 'Floor 3', facilities: 'X-ray, Ultrasound' },
+  //   // Add more department data here
+  // ];
+
+  const [rooms, setRooms] = useState([]);
+
+  const fetchData = async () => {
+    const response = await fetch("http://127.0.0.1/hospital/rooms/routes.php", {method: "GET"});
+    const data = await response.json();
+    setRooms(data);
+  }
 
   useEffect(() => {
-    // Fetch data from the API endpoint
-    fetch('https://localhost/api.php')
-      .then(response => response.json())
-      .then(data => setroomData(data))
-      .catch(error => console.log(error));
+    fetchData()
   }, []);
 
   return (
@@ -19,14 +28,14 @@ const ProductList = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>room_no</TableCell>
-              <TableCell>room_type</TableCell>
-              <TableCell>status</TableCell>
-              <TableCell>chrg_per_day</TableCell>
+              <TableCell>Room Number</TableCell>
+              <TableCell>Room Type</TableCell>
+              <TableCell>Status</TableCell>
+              <TableCell>Charge Per Day</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {roomData.map((room) => (
+            {rooms.map((room) => (
               <TableRow key={room.room_no}>
                 <TableCell>{room.room_no}</TableCell>
                 <TableCell>{room.room_type}</TableCell>
