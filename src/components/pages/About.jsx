@@ -1,159 +1,165 @@
-import React, { useState } from 'react';
-import { Container, Typography, TextField, Button, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
+import React, { useState } from "react";
+import "../../App.css";
 
 const About = () => {
-  const [formData, setFormData] = useState({});
-  const [submittedData, setSubmittedData] = useState([]);
+  const [value, setValue] = useState({
+    patient_number: "",
+    admitted_on: "",
+    condition: "",
+    advance_payment: "",
+    mode_payment: "",
+    room_number: "",
+    doc_no: "",
+  });
 
-  const handleInputChange = (e, field) => {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [field]: e.target.value,
-    }));
-  };
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
+    const newRow = {
+      pat_no: value.patient_number,
+      admtd_on: value.admitted_on,
+      cond_on: value.condition,
+      adv_pymt: value.advance_payment,
+      mode_pymt: value.mode_payment,
+      room_no: value.room_number,
+      doc_no: value.doc_no,
+    };
 
-    try {
-      // Send form data to the backend
-      const response = await fetch('http://localhost/insertData.php', {
-        method: 'POST',
+    setValue({
+      patient_number: "",
+      admitted_on: "",
+      condition: "",
+      advance_payment: "",
+      mode_payment: "",
+      room_number: "",
+      doc_no: "",
+    });
+
+    console.log(newRow);
+
+    const response = await fetch("http://127.0.0.1/hospital/patients/routes.php", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json', // Set the request Content-Type
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) {
-        throw new Error('Network response was not OK');
-      }
-
-      const data = await response.json();
-
-      if (data.success) {
-        setSubmittedData((prevSubmittedData) => [...prevSubmittedData, formData]);
-        setFormData({});
-      }
-    } catch (error) {
-      console.error('An error occurred:', error);
-      console.error('Error stack:', error.stack);
-    }
+        body: JSON.stringify(newRow),
+    }).then(res => res).catch(err => console.error(err))
   };
 
   return (
-    <Container maxWidth="sm" sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      <div>
-        <Typography variant="h4" component="h2" sx={{ mt: 2 }}>
-          Admission
-        </Typography>
+    <div>
+      <main>
         <form onSubmit={handleSubmit}>
-          <TextField
-            label="Pat No"
-            fullWidth
-            id="pat_no" // Update the id attribute to match your database column name
-            placeholder="Pat No"
-            value={formData.patNo || ''}
-            onChange={(e) => handleInputChange(e, 'patNo')}
-            sx={{ mt: 3 }}
-          />
-
-          <TextField
-            label="Admitted On"
-            fullWidth
-            id="admtd_on"
-            placeholder="Admitted On"
-            value={formData.admtdOn || ''}
-            onChange={(e) => handleInputChange(e, 'admtdOn')}
-            sx={{ mt: 3 }}
-          />
-          <TextField
-            label="Condition On"
-            fullWidth
-            id="cond_on"
-            placeholder="Condition On"
-            value={formData.condOn || ''}
-            onChange={(e) => handleInputChange(e, 'condOn')}
-            sx={{ mt: 3 }}
-          />
-          <TextField
-            label="Advanced Payment"
-            fullWidth
-            id="adv_pymt"
-            placeholder="Advanced Payment"
-            value={formData.advPtmt || ''}
-            onChange={(e) => handleInputChange(e, 'advPtmt')}
-            sx={{ mt: 3 }}
-          />
-          <TextField
-            label="Mode of Payment"
-            fullWidth
-            id="mode_pymt"
-            placeholder="Mode of Payment"
-            value={formData.modePymt || ''}
-            onChange={(e) => handleInputChange(e, 'modePymt')}
-            sx={{ mt: 3 }}
-          />
-          <TextField
-            label="Room No"
-            fullWidth
-            id="room_no"
-            placeholder="Room No"
-            value={formData.roomNo || ''}
-            onChange={(e) => handleInputChange(e, 'roomNo')}
-            sx={{ mt: 3 }}
-          />
-          <TextField
-            label="Doctor No"
-            fullWidth
-            id="doc_no"
-            placeholder="Doctor No"
-            value={formData.docNo || ''}
-            onChange={(e) => handleInputChange(e, 'docNo')}
-            sx={{ mt: 3 }}
-          />
-          <Button type="submit" variant="contained" color="primary" sx={{ mt: 3 }}>
-            Submit
-          </Button>
-        </form>
-
-        {submittedData.length > 0 && (
-          <div sx={{ mt: 4 }}>
-            <Typography variant="h5" component="h3">
-              Entered Values:
-            </Typography>
-            <Table sx={{ mt: 2 }}>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Pat No</TableCell>
-                  <TableCell>Admitted On</TableCell>
-                  <TableCell>Condition On</TableCell>
-                  <TableCell>Advanced Payment</TableCell>
-                  <TableCell>Mode of Payment</TableCell>
-                  <TableCell>Room No</TableCell>
-                  <TableCell>Doctor No</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-  {submittedData.map((data) => (
-    <TableRow key={data.pat_no}>
-      <TableCell>{data.pat_no}</TableCell>
-      <TableCell>{data.dis_on}</TableCell>
-      <TableCell>{data.pymt_gv}</TableCell>
-      <TableCell>{data.mode_of_pymt}</TableCell>
-      <TableCell>{data.tr_gvn}</TableCell>
-      <TableCell>{data.tr_advs}</TableCell>
-      <TableCell>{data.medicine}</TableCell>
-    </TableRow>
-  ))}
-</TableBody>
-
-            </Table>
+          <div>
+            <label htmlFor="patient_number">Patient Number</label>
+            <input
+              id="patient_number"
+              type="text"
+              className="input"
+              value={value.patient_number}
+              onChange={(e) =>
+                setValue({ ...value, patient_number: e.target.value })
+              }
+            />
           </div>
-        )}
-      </div>
-    </Container>
+          <div>
+            <label htmlFor="admitted_on">Admitted On</label>
+            <input
+              id="admitted_on"
+              type="text"
+              className="input"
+              value={value.admitted_on}
+              onChange={(e) =>
+                setValue({ ...value, admitted_on: e.target.value })
+              }
+            />
+          </div>
+          <div>
+            <label htmlFor="condition">Condition</label>
+            <input
+              id="condition"
+              type="text"
+              className="input"
+              value={value.condition}
+              onChange={(e) => setValue({ ...value, condition: e.target.value })}
+            />
+          </div>
+          <div>
+            <label htmlFor="advance_payment">Advance Payment</label>
+            <input
+              id="advance_payment"
+              type="text"
+              className="input"
+              value={value.advance_payment}
+              onChange={(e) =>
+                setValue({ ...value, advance_payment: e.target.value })
+              }
+            />
+          </div>
+          <div>
+            <label htmlFor="mode_payment">Mode Payment</label>
+            <input
+              id="mode_payment"
+              type="text"
+              className="input"
+              value={value.mode_payment}
+              onChange={(e) =>
+                setValue({ ...value, mode_payment: e.target.value })
+              }
+            />
+          </div>
+          <div>
+            <label htmlFor="room_number">Room Number</label>
+            <input
+              id="room_number"
+              type="text"
+              className="input"
+              value={value.room_number}
+              onChange={(e) =>
+                setValue({ ...value, room_number: e.target.value })
+              }
+            />
+          </div>
+          <div>
+            <label htmlFor="doc_no">Doc No</label>
+            <input
+              id="doc_no"
+              type="text"
+              className="input"
+              value={value.doc_no}
+              onChange={(e) => setValue({ ...value, doc_no: e.target.value })}
+            />
+          </div>
+          <button type="submit">Submit</button>
+        </form>
+      </main>
+
+      <table id="customers">
+        <thead>
+          <tr>
+            <th>Patient Number</th>
+            <th>Admitted On</th>
+            <th>Condition</th>
+            <th>Advance Payment</th>
+            <th>Mode Payment</th>
+            <th>Room Number</th>
+            <th>Doc No</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{value.patient_number}</td>
+            <td>{value.admitted_on}</td>
+            <td>{value.condition}</td>
+            <td>{value.advance_payment}</td>
+            <td>{value.mode_payment}</td>
+            <td>{value.room_number}</td>
+            <td>{value.doc_no}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   );
 };
 
 export default About;
+
