@@ -46,12 +46,12 @@ function Sidebar() {
         </li>
         <li>
           <button onClick={() => handleNavigation('/admit')}>
-            <MdAddCircle /> Discharge
+            <MdAddCircle /> Discharged Patients
           </button>
         </li>
         <li>
           <button onClick={() => handleNavigation('/patients')}>
-            <MdAddCircle /> Patients
+            <MdAddCircle /> Admitted Patients
           </button>
         </li>
         <li>
